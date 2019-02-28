@@ -2,9 +2,9 @@
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: {{ template "xetusoss-archiva.fullname" . }}
+  name: {{ template "archiva.fullname" . }}
   labels:
-    app: {{ template "xetusoss-archiva.name" . }}
+    app: {{ template "archiva.name" . }}
     chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
@@ -19,7 +19,7 @@ spec:
       paths:
         - path: {{ default "" .Values.proxy.pathPrefix }}
           backend:
-            serviceName: {{ include "xetusoss-archiva.fullname" . }}
+            serviceName: {{ include "archiva.fullname" . }}
             servicePort: http
   {{- if .Values.ingress.tls.enabled }}
   tls:
