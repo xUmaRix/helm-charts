@@ -1,15 +1,15 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: {{ template "xetusoss-archiva.fullname" . }}
+  name: {{ template "archiva.fullname" . }}
   labels:
-    app: {{ template "xetusoss-archiva.name" . }}
+    app: {{ template "archiva.name" . }}
     chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
 spec:
   selector:
-    app: {{ template "xetusoss-archiva.name" . }}
+    app: {{ template "archiva.name" . }}
     release: {{ .Release.Name }}
   type: {{ .Values.service.type }}
   ports:
