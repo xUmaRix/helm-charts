@@ -2,7 +2,7 @@
 {{/*
 Expand the name of the chart.
 */}}
-{{- define "xetusoss-archiva.name" -}}
+{{- define "archiva.name" -}}
 {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
@@ -10,7 +10,7 @@ Expand the name of the chart.
 Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 */}}
-{{- define "xetusoss-archiva.fullname" -}}
+{{- define "archiva.fullname" -}}
 {{- $name := default .Chart.Name .Values.nameOverride -}}
 {{- printf "%s-%s" .Release.Name $name | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
@@ -18,7 +18,7 @@ We truncate at 63 chars because some Kubernetes name fields are limited to this 
 {{/*
 Create the proxy base url from the proxy.* values
 */}}
-{{- define "xetusoss-archiva.proxyBaseUrl" -}}
+{{- define "archiva.proxyBaseUrl" -}}
 {{- $proto := .Values.proxy.proto -}}
 {{- $host := .Values.proxy.hostname -}}
 {{- $path := default "" .Values.proxy.pathPrefix -}}
@@ -33,7 +33,7 @@ Create the proxy base url from the proxy.* values
 {{/*
 Convert the JVM options array into a string
 */}}
-{{- define "xetusoss-archiva.jvmExtraOptsStr" -}}
+{{- define "archiva.jvmExtraOptsStr" -}}
 {{- if (.Values.advanced.jvmExtraOpts) -}}
 {{- range .Values.advanced.jvmExtraOpts }} {{ . }}{{ end -}}
 {{- end -}}
