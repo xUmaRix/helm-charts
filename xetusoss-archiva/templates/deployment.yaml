@@ -1,9 +1,9 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: {{ template "xetusoss-archiva.fullname" . }}
+  name: {{ template "archiva.fullname" . }}
   labels:
-    app: {{ template "xetusoss-archiva.name" . }}
+    app: {{ template "archiva.name" . }}
     chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
@@ -12,7 +12,7 @@ spec:
   template:
     metadata:
       labels:
-        app: {{ template "xetusoss-archiva.name" . }}
+        app: {{ template "archiva.name" . }}
         release: {{ .Release.Name }}
     spec:
       initContainers:
@@ -36,7 +36,7 @@ spec:
             - name: DB_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: {{ template "xetusoss-archiva.fullname" . }}
+                  name: {{ template "archiva.fullname" . }}
                   key: db-password
             - name: DB_HOST
               value: {{ .Values.userDb.host }}
@@ -63,7 +63,7 @@ spec:
               value: {{ .Values.smtp.port | quote }}
               {{- if .Values.proxy.enabled }}
             - name: PROXY_BASE_URL
-              value: {{ template "xetusoss-archiva.proxyBaseUrl" . }}
+              value: {{ template "archiva.proxyBaseUrl" . }}
               {{- end }}
             {{- if eq .Values.userDb.type "mysql" }}
             - name: DB_TYPE
@@ -73,7 +73,7 @@ spec:
             - name: DB_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: {{ template "xetusoss-archiva.fullname" . }}
+                  name: {{ template "archiva.fullname" . }}
                   key: db-password
             - name: DB_HOST
               value: {{ .Values.userDb.host }}
@@ -86,7 +86,7 @@ spec:
               value: {{ .Values.resourceConf.jvmMaxMem | quote }}
             {{- if .Values.advanced.jvmExtraOpts }}
             - name: JVM_EXTRA_OPTS
-              value: {{ include "xetusoss-archiva.jvmExtraOptsStr" . | quote }}
+              value: {{ include "archiva.jvmExtraOptsStr" . | quote }}
             {{- end }}
           {{- if .Values.persistence.enabled }}
           volumeMounts:
@@ -131,6 +131,6 @@ spec:
             {{- if .Values.persistence.existingClaim }}
             claimName: {{ .Values.persistence.existingClaim }}
             {{- else }}
-            claimName: {{ template "xetusoss-archiva.fullname" . }}
+            claimName: {{ template "archiva.fullname" . }}
             {{- end }}
       {{- end }}
